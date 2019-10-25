@@ -6,7 +6,7 @@ using namespace std;
 
 int main() {
 
-    Carro c = Carro("asdasdsad", 1233.12, 54545, "14/02/2019", 2);
+    Carro c = Carro("asdasdsad", 1233.12, 54545, Tempo(14,2,2019), 2);
 
     cout << c.getMarca() << endl;
     cout << c.getPreco() << endl;
@@ -14,7 +14,7 @@ int main() {
     cout << c.getData() << endl;
     cout << c.getMotor() << endl << endl;
 
-    Moto m = Moto("asdasdsad", 1233.12, 54545, "14/02/2019", 1);
+    Moto m = Moto("asdasdsad", 1233.12, 54545, Tempo(14,2,2019), 1);
 
     cout << m.getMarca() << endl;
     cout << m.getPreco() << endl;
@@ -22,7 +22,7 @@ int main() {
     cout << m.getData() << endl;
     cout << m.getModelo() << endl << endl;
 
-    Caminhao cm = Caminhao("asdasdsad", 1233.12, 54545, "14/02/2019", 1);
+    Caminhao cm = Caminhao("asdasdsad", 1233.12, 54545, Tempo(14,2,2019), 1);
 
     cout << cm.getMarca() << endl;
     cout << cm.getPreco() << endl;

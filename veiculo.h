@@ -1,18 +1,20 @@
 #include <string>
 using std::string;
 
+#include "tempo.h"
+
 //Classe Veiculo
 class Veiculo {
     protected:
         string marca;
         float preco;
         int chassi;
-        string data;
+        Tempo data;
     public:
         string getMarca();
         float getPreco();
         int getChassi();
-        string getData(); 
+        Tempo getData(); 
 };
 
 //Getter do atributo marca
@@ -31,7 +33,7 @@ int Veiculo::getChassi() {
 }
 
 //Getter do atributo data
-string Veiculo::getData() {
+Tempo Veiculo::getData() {
     return data;
 }
 
@@ -40,13 +42,13 @@ class Carro : public Veiculo {
     private:
         int motor;
     public:
-        Carro(string m, float p, int c, string d, int motor);
+        Carro(string m, float p, int c, Tempo d, int motor);
         ~Carro();
         string getMotor();
 };
 
 //Construtor da classe Carro
-Carro::Carro(string m, float p, int c, string d, int mt) {
+Carro::Carro(string m, float p, int c, Tempo d, int mt) {
     marca = m;
     preco = p;
     chassi = c;
@@ -73,13 +75,13 @@ class Moto : public Veiculo {
     private:
         int modelo;
     public:
-        Moto(string m, float p, int c, string d, int md);
+        Moto(string m, float p, int c, Tempo d, int md);
         ~Moto();
         string getModelo();
 };
 
 //Construtor da classe Moto
-Moto::Moto(string m, float p, int c, string d, int md) {
+Moto::Moto(string m, float p, int c, Tempo d, int md) {
     marca = m;
     preco = p;
     chassi = c;
@@ -106,13 +108,13 @@ class Caminhao : public Veiculo {
     private:
         int carga;
     public:
-        Caminhao(string m, float p, int c, string d, int cg);
+        Caminhao(string m, float p, int c, Tempo d, int cg);
         ~Caminhao();
         string getCarga();
 };
 
 //Construtor da classe Caminhao
-Caminhao::Caminhao(string m, float p, int c, string d, int cg) {
+Caminhao::Caminhao(string m, float p, int c, Tempo d, int cg) {
     marca = m;
     preco = p;
     chassi = c;
