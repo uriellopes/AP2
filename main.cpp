@@ -28,7 +28,6 @@ int main() {
     cout << cm.getPreco() << endl;
     cout << cm.getChassi() << endl;
     cout << cm.getData() << endl;
-    cout << cm.getCarga() << endl << endl;
-
+    cout << cm.getCarga() << endl;
     return 0;
 }

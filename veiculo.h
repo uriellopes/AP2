@@ -14,7 +14,7 @@ class Veiculo {
         string getMarca();
         float getPreco();
         int getChassi();
-        Tempo getData(); 
+        Tempo getData();
 };
 
 //Getter do atributo marca
