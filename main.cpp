@@ -1,9 +1,14 @@
-//g++ -std=c++11 -Wall -pedantic -g -O0 -o exec main.cpp funcoes.cpp concessionaria.cpp automovel.cpp tempo.cpp
+//g++ -Wall -pedantic -g -O0 -o exec main.cpp
 #include <iostream>
+#include "concessionaria.h"
 
 int main() {
 
-    std::cout << "asd" << std::endl;
+    Carro c;
+
+    Moto m;
+
+    Caminhao cm;
 
     return 0;
 }
