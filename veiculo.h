@@ -14,20 +14,23 @@ class Veiculo {
         int getChassi();
         string getData(); 
 };
-////
 
+//Getter do atributo marca
 string Veiculo::getMarca() {
     return marca;
 }
 
+//Getter do atributo preco
 float Veiculo::getPreco() {
     return preco;
 }
 
+//Getter do atributo chassi
 int Veiculo::getChassi() {
     return chassi;
 }
 
+//Getter do atributo data
 string Veiculo::getData() {
     return data;
 }
@@ -41,9 +44,8 @@ class Carro : public Veiculo {
         ~Carro();
         string getMotor();
 };
-////
 
-//Funções da classe Carro
+//Construtor da classe Carro
 Carro::Carro(string m, float p, int c, string d, int mt) {
     marca = m;
     preco = p;
@@ -52,10 +54,12 @@ Carro::Carro(string m, float p, int c, string d, int mt) {
     motor = mt;
 }
 
+//Destrutor da classe Carro
 Carro::~Carro() {
 
 }
 
+//Getter do atributo Motor
 string Carro::getMotor() {
     if( motor == 1 ) {
         return "gasolina";
@@ -63,7 +67,6 @@ string Carro::getMotor() {
         return "eletrico";
     }
 }
-////
 
 //Classe Moto
 class Moto : public Veiculo {
@@ -74,9 +77,8 @@ class Moto : public Veiculo {
         ~Moto();
         string getModelo();
 };
-////
 
-//Funções da classe Moto
+//Construtor da classe Moto
 Moto::Moto(string m, float p, int c, string d, int md) {
     marca = m;
     preco = p;
@@ -85,10 +87,12 @@ Moto::Moto(string m, float p, int c, string d, int md) {
     modelo = md;
 }
 
+//Destrutor da classe Moto
 Moto::~Moto() {
 
 }
 
+//Getter do atributo Modulo
 string Moto::getModelo() {
     if( modelo == 1 ) {
         return "classico";
@@ -96,7 +100,6 @@ string Moto::getModelo() {
         return "esportivo";
     }
 }
-////
 
 //Classe Caminhao
 class Caminhao : public Veiculo {
@@ -107,9 +110,8 @@ class Caminhao : public Veiculo {
         ~Caminhao();
         string getCarga();
 };
-////
 
-//Funções da classe Caminhao
+//Construtor da classe Caminhao
 Caminhao::Caminhao(string m, float p, int c, string d, int cg) {
     marca = m;
     preco = p;
@@ -118,10 +120,12 @@ Caminhao::Caminhao(string m, float p, int c, string d, int cg) {
     carga = cg;
 }
 
+//Destrutor da classe Caminhao
 Caminhao::~Caminhao() {
 
 }
 
+//Getter do atributo Carga
 string Caminhao::getCarga() {
     if( carga == 1 ) {
         return "comum";
@@ -129,4 +133,3 @@ string Caminhao::getCarga() {
         return "perigosa";
     }
 }
-////
