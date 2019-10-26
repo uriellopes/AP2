@@ -55,7 +55,7 @@ void lerDados(vector<Concessionaria> &concessionarias) {
             }
         }
     }
-    
+
     //Fechar arquivo veiculos.txt após terminar de extrair as informacoes
     dadosVeiculos.close();
 }
@@ -63,16 +63,33 @@ void lerDados(vector<Concessionaria> &concessionarias) {
 //Funcao para salvar os dados em um arquivo
 void salvarDados(vector<Concessionaria> &concessionarias) {
 
-    //Abrir arquivo concessionarias.txt em modo de escrita
+    //Abrir arquivos concessionarias.txt e veiculos.txt em modo de escrita
     ofstream dadosConcessionaria("concessionarias.txt");
+    ofstream dadosVeiculos("veiculos.txt");
 
-    //Salvar dados do vetor concessionaria dentro do arquivo concessionarias.txt
-    for (auto i = concessionarias.begin(); i != concessionarias.end(); i++) {
-        dadosConcessionaria << i->getNome() << "," << i->getCNPJ() << endl;        
+    //Salva os dados da concessionaria no arquivo concessionarias.txt e os dados dos veiculos em veiculos.txt
+    for (unsigned i = 0; i < concessionarias.size(); i++) {
+        dadosConcessionaria << concessionarias[i].getNome() << "," << concessionarias[i].getCNPJ() << endl;
+
+        vector<Carro> carros = concessionarias[i].getCarros();
+        for (auto j = carros.begin(); j != carros.end(); j++) {
+            dadosVeiculos << "1," << i << "," << j->getMarca() << "," << j->getPreco() << "," << j->getChassi() << "," << j->getDia() << "," << j->getTipo() << endl;
+        }
+
+        vector<Moto> motos = concessionarias[i].getMotos();
+        for (auto j = motos.begin(); j != motos.end(); j++) {
+            dadosVeiculos << "2," << i << "," << j->getMarca() << "," << j->getPreco() << "," << j->getChassi() << "," << j->getDia() << "," << j->getTipo() << endl;
+        }
+
+        vector<Caminhao> caminhoes = concessionarias[i].getCaminhoes();
+        for (auto j = caminhoes.begin(); j != caminhoes.end(); j++) {
+            dadosVeiculos << "3," << i << "," << j->getMarca() << "," << j->getPreco() << "," << j->getChassi() << "," << j->getDia() << "," << j->getTipo() << endl;
+        }
     }
 
-    //Fechar arquivo após salvar os dados
+    //Fecha os arquivos concessionarias.txt e veiculos.txt após inserir os dados
     dadosConcessionaria.close();
+    dadosVeiculos.close();
 }
 
 int main() {
@@ -80,14 +97,10 @@ int main() {
     //Vector para armazenar todas as concessionarias e suas informacoes
     vector<Concessionaria> concessionarias;
 
-    //Chamar funcao para pegar dados inicias em um arquivo
+    // //Chamar funcao para pegar dados inicias em um arquivo
     lerDados(concessionarias);
 
-    cout << concessionarias[0] << endl;
-    cout << concessionarias[1] << endl;
-    cout << concessionarias[2] << endl;
-
-    //Chamar funcao para salvar os dados em um arquivo
+    // //Chamar funcao para salvar os dados em um arquivo
     salvarDados(concessionarias);
 
     return 0;

@@ -17,6 +17,9 @@ class Concessionaria {
         void novoCarro(Carro c);
         void novoMoto(Moto m);
         void novoCaminhao(Caminhao c);
+        std::vector<Carro> getCarros();
+        std::vector<Moto> getMotos();
+        std::vector<Caminhao> getCaminhoes();
         friend std::ostream& operator<< (std::ostream &o, Concessionaria const c);
 };
 
@@ -42,19 +45,37 @@ long long int Concessionaria::getCNPJ() {
     return cnpj;
 }
 
+//Funcao para adicionar novo carro
 void Concessionaria::novoCarro(Carro c) {
     carros.push_back(c);
     qtd_estoque++;
 }
 
+//Funcao para adicionar nova moto
 void Concessionaria::novoMoto(Moto m) {
     motos.push_back(m);
     qtd_estoque++;
 }
 
+//Funcao para adicionar novo caminhao
 void Concessionaria::novoCaminhao(Caminhao c) {
     caminhoes.push_back(c);
     qtd_estoque++;
+}
+
+//Funcao que retorna o vetor de carros
+std::vector<Carro> Concessionaria::getCarros() {
+    return carros;
+}
+
+//Funcao que retorna o vetor de motos
+std::vector<Moto> Concessionaria::getMotos() {
+    return motos;
+}
+
+//Funcao que retorna o vetor de caminhoes
+std::vector<Caminhao> Concessionaria::getCaminhoes() {
+    return caminhoes;
 }
 
 //Sobrecarga do operador << na classe Concessionaria
