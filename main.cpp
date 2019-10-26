@@ -2,31 +2,37 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-#include <vector>
 #include "concessionaria.h"
 
 using namespace std;
 
 int main() {
-    vector<Carro> carros;
 
-    //Receber valores de um arquivo para dos iniciais e salvar em um vetor
+    //Vector para armazenar todas as concessionarias e suas informacoes
+    vector<Concessionaria> concessionarias;
+
+    //Abrir arquivo concessionarias.txt
+    ifstream dados("concessionarias.txt");
+
+    //Extrair informacoes do arquivo concessionarias.txt para salvar no vector concessionarias
     vector<string> values;
-    string line, texto;
-    ifstream dados("dados.txt"); 
+    string line, value;
     while(!dados.eof()) {
         getline(dados, line);
         stringstream temp(line);
         values.clear();
-        while(getline(temp, texto, ',')) {
-            values.push_back(texto);
+        while(getline(temp, value, ',')) {
+            values.push_back(value);
         }
-        carros.push_back(Carro(values[0], stof(values[1]), stoi(values[2]), Tempo(stoi(values[3]), stoi(values[4]), stoi(values[5])), stoi(values[6])));
+        concessionarias.push_back(Concessionaria(values[0], stoll(values[1], nullptr, 10)));
     }
+
+    //Fechar arquivo concessionarias.txt após terminar de extrair as informacoes
     dados.close();
 
-    cout << carros[0] << endl;
-    cout << carros[1] << endl;
+    cout << concessionarias[0] << endl;
+    cout << concessionarias[1] << endl;
+    cout << concessionarias[2] << endl;
     
     return 0;
 }
