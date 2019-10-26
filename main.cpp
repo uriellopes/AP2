@@ -8,8 +8,9 @@
 using namespace std;
 
 int main() {
+    vector<Carro> carros;
 
-    //Receber valores de um arquivo para criar dados iniciais
+    //Receber valores de um arquivo para dos iniciais e salvar em um vetor
     vector<string> values;
     string line, texto;
     ifstream dados("dados.txt"); 
@@ -20,42 +21,12 @@ int main() {
         while(getline(temp, texto, ',')) {
             values.push_back(texto);
         }
+        carros.push_back(Carro(values[0], stof(values[1]), stoi(values[2]), Tempo(stoi(values[3]), stoi(values[4]), stoi(values[5])), stoi(values[6])));
     }
     dados.close();
 
-    // string S, T; 
+    cout << carros[0] << endl;
+    cout << carros[1] << endl;
     
-    // getline(cin,S);
-    
-    // stringstream X(S);
-    
-    // while(getline(X, T, ' ')) 
-    // { 
-    //     cout<<T<<endl; 
-    // } 
-
-    // Carro c = Carro("asdasdsad", 1233.12, 54545, Tempo(14,2,2019), 2);
-
-    // cout << c.getMarca() << endl;
-    // cout << c.getPreco() << endl;
-    // cout << c.getChassi() << endl;
-    // cout << c.getData() << endl;
-    // cout << c.getMotor() << endl << endl;
-
-    // Moto m = Moto("asdasdsad", 1233.12, 54545, Tempo(14,2,2019), 1);
-
-    // cout << m.getMarca() << endl;
-    // cout << m.getPreco() << endl;
-    // cout << m.getChassi() << endl;
-    // cout << m.getData() << endl;
-    // cout << m.getModelo() << endl << endl;
-
-    // Caminhao cm = Caminhao("asdasdsad", 1233.12, 54545, Tempo(14,2,2019), 1);
-
-    // cout << cm.getMarca() << endl;
-    // cout << cm.getPreco() << endl;
-    // cout << cm.getChassi() << endl;
-    // cout << cm.getData() << endl;
-    // cout << cm.getCarga() << endl;
     return 0;
 }
