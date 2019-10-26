@@ -8,48 +8,23 @@ class Veiculo {
     protected:
         string marca;
         float preco;
-        int chassi;
+        string chassi;
         Tempo data;
-    public:
-        string getMarca();
-        float getPreco();
-        int getChassi();
-        Tempo getData();
 };
-
-//Getter do atributo marca
-string Veiculo::getMarca() {
-    return marca;
-}
-
-//Getter do atributo preco
-float Veiculo::getPreco() {
-    return preco;
-}
-
-//Getter do atributo chassi
-int Veiculo::getChassi() {
-    return chassi;
-}
-
-//Getter do atributo data
-Tempo Veiculo::getData() {
-    return data;
-}
 
 //Classe Carro
 class Carro : public Veiculo {
     private:
         int motor;
     public:
-        Carro(string m, float p, int c, Tempo d, int motor);
+        Carro(string m, float p, string c, Tempo d, int motor);
         ~Carro();
         string getMotor();
         friend std::ostream& operator<< (std::ostream &o, Carro const c);
 };
 
 //Construtor da classe Carro
-Carro::Carro(string m, float p, int c, Tempo d, int mt) {
+Carro::Carro(string m, float p, string c, Tempo d, int mt) {
     marca = m;
     preco = p;
     chassi = c;
@@ -90,14 +65,14 @@ class Moto : public Veiculo {
     private:
         int modelo;
     public:
-        Moto(string m, float p, int c, Tempo d, int md);
+        Moto(string m, float p, string c, Tempo d, int md);
         ~Moto();
         string getModelo();
         friend std::ostream& operator<< (std::ostream &o, Moto const m);
 };
 
 //Construtor da classe Moto
-Moto::Moto(string m, float p, int c, Tempo d, int md) {
+Moto::Moto(string m, float p, string c, Tempo d, int md) {
     marca = m;
     preco = p;
     chassi = c;
@@ -138,14 +113,14 @@ class Caminhao : public Veiculo {
     private:
         int carga;
     public:
-        Caminhao(string m, float p, int c, Tempo d, int cg);
+        Caminhao(string m, float p, string c, Tempo d, int cg);
         ~Caminhao();
         string getCarga();
         friend std::ostream& operator<< (std::ostream &o, Caminhao const c);
 };
 
 //Construtor da classe Caminhao
-Caminhao::Caminhao(string m, float p, int c, Tempo d, int cg) {
+Caminhao::Caminhao(string m, float p, string c, Tempo d, int cg) {
     marca = m;
     preco = p;
     chassi = c;

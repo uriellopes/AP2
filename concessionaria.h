@@ -6,12 +6,17 @@ class Concessionaria {
         string nome;
         long long int cnpj;
         int qtd_estoque;
-        //vector<Carro> carros;
+        std::vector<Carro> carros;
+        std::vector<Moto> motos;
+        std::vector<Caminhao> caminhoes;
     public:
         Concessionaria(string n, long long int c);
         ~Concessionaria();
         string getNome();
         long long int getCNPJ();
+        void novoCarro(Carro c);
+        void novoMoto(Moto m);
+        void novoCaminhao(Caminhao c);
         friend std::ostream& operator<< (std::ostream &o, Concessionaria const c);
 };
 
@@ -35,6 +40,21 @@ string Concessionaria::getNome() {
 //Getter do atributo cnpj
 long long int Concessionaria::getCNPJ() {
     return cnpj;
+}
+
+void Concessionaria::novoCarro(Carro c) {
+    carros.push_back(c);
+    qtd_estoque++;
+}
+
+void Concessionaria::novoMoto(Moto m) {
+    motos.push_back(m);
+    qtd_estoque++;
+}
+
+void Concessionaria::novoCaminhao(Caminhao c) {
+    caminhoes.push_back(c);
+    qtd_estoque++;
 }
 
 //Sobrecarga do operador << na classe Concessionaria

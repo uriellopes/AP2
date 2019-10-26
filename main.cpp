@@ -29,8 +29,38 @@ void lerDados(vector<Concessionaria> &concessionarias) {
 
     //Fechar arquivo concessionarias.txt após terminar de extrair as informacoes
     dadosConcessionaria.close();
+
+    //Abrir arquivo veiculos.txt em modo leitura
+    ifstream dadosVeiculos("veiculos.txt");
+
+    //Extrair informacoes do arquivo veiculos.txt para salvar no vector concessionarias
+    while(!dadosVeiculos.eof()) {
+        getline(dadosVeiculos, line);
+        if ( !line.empty() ) {
+            stringstream temp(line);
+            values.clear();
+            while(getline(temp, value, ',')) {
+                values.push_back(value);
+            }
+            switch (stoi(values[0])) {
+            case 1:
+                concessionarias[stoi(values[1])].novoCarro(Carro(values[2], stof(values[3]), values[4], Tempo(stoi(values[5]), stoi(values[6]),stoi(values[7])), stoi(values[8])));
+                break;
+            case 2:
+                concessionarias[stoi(values[1])].novoMoto(Moto(values[2], stof(values[3]), values[4], Tempo(stoi(values[5]), stoi(values[6]),stoi(values[7])), stoi(values[8])));
+                break;
+            case 3:
+                concessionarias[stoi(values[1])].novoCaminhao(Caminhao(values[2], stof(values[3]), values[4], Tempo(stoi(values[5]), stoi(values[6]),stoi(values[7])), stoi(values[8])));
+                break;
+            }
+        }
+    }
+    
+    //Fechar arquivo veiculos.txt após terminar de extrair as informacoes
+    dadosVeiculos.close();
 }
 
+//Funcao para salvar os dados em um arquivo
 void salvarDados(vector<Concessionaria> &concessionarias) {
 
     //Abrir arquivo concessionarias.txt em modo de escrita
@@ -52,6 +82,10 @@ int main() {
 
     //Chamar funcao para pegar dados inicias em um arquivo
     lerDados(concessionarias);
+
+    cout << concessionarias[0] << endl;
+    cout << concessionarias[1] << endl;
+    cout << concessionarias[2] << endl;
 
     //Chamar funcao para salvar os dados em um arquivo
     salvarDados(concessionarias);
