@@ -1,5 +1,6 @@
 #include "veiculo.h"
 #include "propriedade.h"
+#include "chassi.h"
 #include <vector>
 
 class Concessionaria {
@@ -15,6 +16,7 @@ class Concessionaria {
         int qtd_motos;
         int qtd_caminhoes;
         float preco_total;
+        std::vector<Chassi> chassis;
     public:
         Concessionaria(std::string n, long long int c, std::string p);
         Concessionaria(std::string n, long long int c, long long p);
@@ -85,6 +87,7 @@ void Concessionaria::novoCarro(Carro c) {
     qtd_estoque++;
     qtd_carros++;
     preco_total = preco_total + c.getPreco();
+    chassis.push_back(Chassi(c.getChassi(), 1, carros.size() - 1));
 }
 
 //Funcao para adicionar nova moto
@@ -93,6 +96,7 @@ void Concessionaria::novoMoto(Moto m) {
     qtd_estoque++;
     qtd_motos++;
     preco_total = preco_total + m.getPreco();
+    chassis.push_back(Chassi(m.getChassi(), 2, motos.size() - 1));
 }
 
 //Funcao para adicionar novo caminhao
@@ -101,6 +105,7 @@ void Concessionaria::novoCaminhao(Caminhao c) {
     qtd_estoque++;
     qtd_caminhoes++;
     preco_total = preco_total + c.getPreco();
+    chassis.push_back(Chassi(c.getChassi(), 3, caminhoes.size() - 1));
 }
 
 //Funcao que retorna o vetor de carros
