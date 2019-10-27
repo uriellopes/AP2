@@ -38,10 +38,12 @@ Tempo Veiculo::getData() {
     return data;
 }
 
+//Funcao que retorna a data no formato para salvar no arquivo
 std::string Veiculo::getDia() {
     return data.saveData();
 }
 
+//Getter do atributo estatico qtd_veiculos
 int Veiculo::getQtdVeiculos() {
     return qtd_veiculos;
 }

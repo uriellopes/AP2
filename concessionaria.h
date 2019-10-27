@@ -36,16 +36,7 @@ class Concessionaria {
         friend std::ostream& operator<< (std::ostream &o, Concessionaria const c);
 };
 
-void Concessionaria::showDados() {
-    std::cout << "Nome: " << nome << std::endl;
-    std::cout << "Proprietário " << proprietario << std::endl;
-    std::cout << "Quantidade de Carros: " << qtd_carros << std::endl;
-    std::cout << "Quantidade de Motos: " << qtd_motos << std::endl;
-    std::cout << "Quantidade de Caminhoes: " << qtd_caminhoes << std::endl;
-    std::cout << "Preço total dos veiculos: " << preco_total << std::endl;
-}
-
-//Construtor da classe Concessionaria
+//Construtor da classe Concessionaria para pessoa fisica
 Concessionaria::Concessionaria(std::string n, long long int c, std::string p) {
     nome = n;
     cnpj = c;
@@ -58,6 +49,7 @@ Concessionaria::Concessionaria(std::string n, long long int c, std::string p) {
     qtd_concessionarias++;
 }
 
+//Construtor da classe Concessionaria para pessoa juridica
 Concessionaria::Concessionaria(std::string n, long long int c, long long int p) {
     nome = n;
     cnpj = c;
@@ -127,12 +119,24 @@ std::vector<Caminhao> Concessionaria::getCaminhoes() {
     return caminhoes;
 }
 
+//Getter do atributo proprietario
 Propriedade Concessionaria::getPropriedade() {
     return proprietario;
 }
 
+//Getter do atributo estatico qtd_concessionarias
 int Concessionaria::getQtdConcessionaria() {
     return qtd_concessionarias;
+}
+
+//Funcao que mostrar os dados de proprietario, quantiade de carro, motos e caminhoes, e o preco total dos veiculos
+void Concessionaria::showDados() {
+    std::cout << "Nome: " << nome << std::endl;
+    std::cout << "Proprietário " << proprietario << std::endl;
+    std::cout << "Quantidade de Carros: " << qtd_carros << std::endl;
+    std::cout << "Quantidade de Motos: " << qtd_motos << std::endl;
+    std::cout << "Quantidade de Caminhoes: " << qtd_caminhoes << std::endl;
+    std::cout << "Preço total dos veiculos: " << preco_total << std::endl;
 }
 
 //Sobrecarga do operador << na classe Concessionaria

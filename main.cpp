@@ -4,12 +4,14 @@
 #include <fstream>
 #include "concessionaria.h"
 
+//Verifica o tipo de SO para definir o tipo da variavel para limpar o terminal
 #ifdef _WIN32
 #define LIMPAR "CLS"
 #else
 #define LIMPAR "clear"
 #endif
 
+//Atributos estaticos para armazenar a quantidade de concessionarias e veiculos cadastrados
 int Concessionaria::qtd_concessionarias = 0;
 int Veiculo::qtd_veiculos = 0;
 
@@ -130,6 +132,7 @@ void salvarDados(std::vector<Concessionaria> &concessionarias) {
     dadosVeiculos.close();
 }
 
+//Funcao que mostrar os dados das concessionarias ( Proprietario, quantidade de cada veiculo e o valor total dos veiculos)
 void mostrarDadosConcessionarias(std::vector<Concessionaria> &concessionarias) {
     for (unsigned i = 0; i < concessionarias.size(); i++) {
         std::cout << "Concessionária " << i + 1 << std::endl;
@@ -171,6 +174,7 @@ void novaConcessionaria(std::vector<Concessionaria> &concessionarias) {
         }
     } while (!inputValido);
 
+    //Caso valido salvar o valor do CNPJ
     cnpj = stoll(input, nullptr, 10);
 
     //Verificar se já existe alguma concessionária com nome ou cpnj digitado pelo usuário cadastrada
@@ -181,7 +185,7 @@ void novaConcessionaria(std::vector<Concessionaria> &concessionarias) {
         }
     }
 
-    //Se existir alertar usuario, caso nao continuar o cadastro
+    //Se existir alertar usuario, caso nao, continuar o cadastro
     if (existe) {
         std::cout << std::endl;
         std::cout << "==============================================================" << std::endl;
@@ -193,6 +197,7 @@ void novaConcessionaria(std::vector<Concessionaria> &concessionarias) {
         std::cout << "1 - Pessoa Fisica" << std::endl;
         std::cout << "2 - Pessoa Juridica" << std::endl;
 
+        //Loop que verifica se foi digitado um valor correto
         do {
             std::cin >> input;
 
@@ -212,6 +217,7 @@ void novaConcessionaria(std::vector<Concessionaria> &concessionarias) {
             }
         } while (!inputValido);
 
+        //Caso válido realizer a açao correspondente
         switch (tipo_proprietario) {
             case 1:
                 std::cout << "Digite o nome e o sobrenome do proprietario: " << std::endl;
