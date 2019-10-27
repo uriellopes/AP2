@@ -99,6 +99,14 @@ void salvarDados(std::vector<Concessionaria> &concessionarias) {
     dadosVeiculos.close();
 }
 
+void mostrarDadosConcessionarias(std::vector<Concessionaria> &concessionarias) {
+    for (unsigned i = 0; i < concessionarias.size(); i++) {
+        std::cout << "Concessionária " << i << std::endl;
+        concessionarias[i].showDados();
+        std::cout << std::endl;
+    }
+}
+
 int main() {
 
     //Vector para armazenar todas as concessionarias e suas informacoes
@@ -107,9 +115,11 @@ int main() {
     // //Chamar funcao para pegar dados inicias em um arquivo
     lerDados(concessionarias);
 
-    std::cout << concessionarias[0] << std::endl;
-    std::cout << concessionarias[1] << std::endl;
-    std::cout << concessionarias[2] << std::endl;
+    mostrarDadosConcessionarias(concessionarias);
+
+    // concessionarias[0].showDados();
+    // concessionarias[1].showDados();
+    // concessionarias[2].showDados();
 
     // //Chamar funcao para salvar os dados em um arquivo
     salvarDados(concessionarias);

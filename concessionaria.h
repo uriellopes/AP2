@@ -11,6 +11,10 @@ class Concessionaria {
         std::vector<Moto> motos;
         std::vector<Caminhao> caminhoes;
         Propriedade proprietario;
+        int qtd_carros;
+        int qtd_motos;
+        int qtd_caminhoes;
+        float preco_total;
     public:
         Concessionaria(std::string n, long long int c, std::string p);
         Concessionaria(std::string n, long long int c, long long p);
@@ -24,8 +28,18 @@ class Concessionaria {
         std::vector<Moto> getMotos();
         std::vector<Caminhao> getCaminhoes();
         Propriedade getPropriedade();
+        void showDados();
         friend std::ostream& operator<< (std::ostream &o, Concessionaria const c);
 };
+
+void Concessionaria::showDados() {
+    std::cout << "Nome: " << nome << std::endl;
+    std::cout << "Proprietário " << proprietario << std::endl;
+    std::cout << "Quantidade de Carros: " << qtd_carros << std::endl;
+    std::cout << "Quantidade de Motos: " << qtd_motos << std::endl;
+    std::cout << "Quantidade de Caminhoes: " << qtd_caminhoes << std::endl;
+    std::cout << "Preço total dos veiculos: " << preco_total << std::endl;
+}
 
 //Construtor da classe Concessionaria
 Concessionaria::Concessionaria(std::string n, long long int c, std::string p) {
@@ -33,6 +47,10 @@ Concessionaria::Concessionaria(std::string n, long long int c, std::string p) {
     cnpj = c;
     qtd_estoque = 0;
     proprietario = Propriedade(p);
+    qtd_carros = 0;
+    qtd_motos = 0;
+    qtd_caminhoes = 0;
+    preco_total = 0;
 }
 
 Concessionaria::Concessionaria(std::string n, long long int c, long long int p) {
@@ -40,6 +58,10 @@ Concessionaria::Concessionaria(std::string n, long long int c, long long int p) 
     cnpj = c;
     qtd_estoque = 0;
     proprietario = Propriedade(p);
+    qtd_carros = 0;
+    qtd_motos = 0;
+    qtd_caminhoes = 0;
+    preco_total = 0;
 }
 
 //Destrutor da classe Concessionaria
@@ -61,18 +83,24 @@ long long int Concessionaria::getCNPJ() {
 void Concessionaria::novoCarro(Carro c) {
     carros.push_back(c);
     qtd_estoque++;
+    qtd_carros++;
+    preco_total = preco_total + c.getPreco();
 }
 
 //Funcao para adicionar nova moto
 void Concessionaria::novoMoto(Moto m) {
     motos.push_back(m);
     qtd_estoque++;
+    qtd_motos++;
+    preco_total = preco_total + m.getPreco();
 }
 
 //Funcao para adicionar novo caminhao
 void Concessionaria::novoCaminhao(Caminhao c) {
     caminhoes.push_back(c);
     qtd_estoque++;
+    qtd_caminhoes++;
+    preco_total = preco_total + c.getPreco();
 }
 
 //Funcao que retorna o vetor de carros
