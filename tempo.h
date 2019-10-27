@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-using std::string;
 
 //Classe Tempo
 class Tempo {
@@ -15,7 +14,7 @@ class Tempo {
         friend std::ostream& operator<< (std::ostream &o, Tempo const t);
         int getQtdDias();
         ~Tempo();
-        string saveData();
+        std::string saveData();
 };
 
 //Função para calcular a quantidade de dias para cada ano
@@ -88,6 +87,6 @@ Tempo::~Tempo() {
 }
 
 //Funcao para retornar data em formatada para salvar no arquivo
-string Tempo::saveData() {
+std::string Tempo::saveData() {
     return std::to_string(dia) + "," + std::to_string(mes) + "," + std::to_string(ano);
 }

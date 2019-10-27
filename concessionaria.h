@@ -1,18 +1,21 @@
 #include "veiculo.h"
+#include "propriedade.h"
 #include <vector>
 
 class Concessionaria {
     private:
-        string nome;
+        std::string nome;
         long long int cnpj;
         int qtd_estoque;
         std::vector<Carro> carros;
         std::vector<Moto> motos;
         std::vector<Caminhao> caminhoes;
+        Propriedade proprietario;
     public:
-        Concessionaria(string n, long long int c);
+        Concessionaria(std::string n, long long int c, std::string p);
+        Concessionaria(std::string n, long long int c, long long p);
         ~Concessionaria();
-        string getNome();
+        std::string getNome();
         long long int getCNPJ();
         void novoCarro(Carro c);
         void novoMoto(Moto m);
@@ -20,14 +23,23 @@ class Concessionaria {
         std::vector<Carro> getCarros();
         std::vector<Moto> getMotos();
         std::vector<Caminhao> getCaminhoes();
+        Propriedade getPropriedade();
         friend std::ostream& operator<< (std::ostream &o, Concessionaria const c);
 };
 
 //Construtor da classe Concessionaria
-Concessionaria::Concessionaria(string n, long long int c) {
+Concessionaria::Concessionaria(std::string n, long long int c, std::string p) {
     nome = n;
     cnpj = c;
     qtd_estoque = 0;
+    proprietario = Propriedade(p);
+}
+
+Concessionaria::Concessionaria(std::string n, long long int c, long long int p) {
+    nome = n;
+    cnpj = c;
+    qtd_estoque = 0;
+    proprietario = Propriedade(p);
 }
 
 //Destrutor da classe Concessionaria
@@ -36,7 +48,7 @@ Concessionaria::~Concessionaria() {
 }
 
 //Getter do atributo nome
-string Concessionaria::getNome() {
+std::string Concessionaria::getNome() {
     return nome;
 }
 
@@ -78,10 +90,15 @@ std::vector<Caminhao> Concessionaria::getCaminhoes() {
     return caminhoes;
 }
 
+Propriedade Concessionaria::getPropriedade() {
+    return proprietario;
+}
+
 //Sobrecarga do operador << na classe Concessionaria
 std::ostream& operator<< (std::ostream &o, Concessionaria const c) {
     o << "Nome: " << c.nome << std::endl;
     o << "CNPJ: " << c.cnpj << std::endl;
-    o << "Quantidade no estoque: " << c.qtd_estoque;
+    o << "Quantidade no estoque: " << c.qtd_estoque << std::endl;
+    o << c.proprietario;
     return o;
 }
