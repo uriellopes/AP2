@@ -18,6 +18,8 @@ class Concessionaria {
         float preco_total;
         std::vector<Chassi> chassis;
     public:
+        static int qtd_concessionarias;
+        static int getQtdConcessionaria();
         Concessionaria(std::string n, long long int c, std::string p);
         Concessionaria(std::string n, long long int c, long long p);
         ~Concessionaria();
@@ -53,6 +55,7 @@ Concessionaria::Concessionaria(std::string n, long long int c, std::string p) {
     qtd_motos = 0;
     qtd_caminhoes = 0;
     preco_total = 0;
+    qtd_concessionarias++;
 }
 
 Concessionaria::Concessionaria(std::string n, long long int c, long long int p) {
@@ -64,6 +67,7 @@ Concessionaria::Concessionaria(std::string n, long long int c, long long int p) 
     qtd_motos = 0;
     qtd_caminhoes = 0;
     preco_total = 0;
+    qtd_concessionarias++;
 }
 
 //Destrutor da classe Concessionaria
@@ -125,6 +129,10 @@ std::vector<Caminhao> Concessionaria::getCaminhoes() {
 
 Propriedade Concessionaria::getPropriedade() {
     return proprietario;
+}
+
+int Concessionaria::getQtdConcessionaria() {
+    return qtd_concessionarias;
 }
 
 //Sobrecarga do operador << na classe Concessionaria

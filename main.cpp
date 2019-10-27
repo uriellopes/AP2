@@ -10,6 +10,9 @@
 #define LIMPAR "clear"
 #endif
 
+int Concessionaria::qtd_concessionarias = 0;
+int Veiculo::qtd_veiculos = 0;
+
 //Função para pressionar enter para continuar
 void clear() {
     system(LIMPAR);
@@ -129,7 +132,7 @@ void salvarDados(std::vector<Concessionaria> &concessionarias) {
 
 void mostrarDadosConcessionarias(std::vector<Concessionaria> &concessionarias) {
     for (unsigned i = 0; i < concessionarias.size(); i++) {
-        std::cout << "Concessionária " << i << std::endl;
+        std::cout << "Concessionária " << i + 1 << std::endl;
         concessionarias[i].showDados();
         std::cout << std::endl;
     }
@@ -254,9 +257,10 @@ void showMenu(std::vector<Concessionaria> &concessionarias) {
         std::cout << std::endl << "Escolha uma das seguintes opcoes: " << std::endl << std::endl;
         std::cout << "[1] - Criar nova Concessionaria" << std::endl;
         std::cout << "[2] - Listar media de carros por concessionaria" << std::endl;
-        int opcoes = 2;
+        std::cout << "[3] - Listar dados das concessionarias" << std::endl;
+        int opcoes = 3;
         for (unsigned int i = 0; i < concessionarias.size(); i++) {
-            std::cout << "[" << i + 3 << "] - Selecionar Concessionaria " << concessionarias[i].getNome() << std::endl;
+            std::cout << "[" << i + 4 << "] - Selecionar Concessionaria " << concessionarias[i].getNome() << std::endl;
             opcoes++;
         }
 
@@ -282,9 +286,16 @@ void showMenu(std::vector<Concessionaria> &concessionarias) {
                     novaConcessionaria(concessionarias);
                     break;
                 case 2:
-                    // clear();
-                    // std::cout << "A media de carros por concessionaria e de aproximadamente " << Automovel::getQtdCarros()/Concessionaria::getQtdConcessionaria() << " carros por concessionaria!!" << std::endl;
-                    // pressToCont();
+                    clear();
+                    std::cout << "A media de veiculos por concessionaria e de aproximadamente " << Veiculo::getQtdVeiculos()/Concessionaria::getQtdConcessionaria() << " veiculos por concessionaria!!" << std::endl;
+                    std::cin.ignore();
+                    pressToCont();
+                    break;
+                case 3:
+                    clear();
+                    mostrarDadosConcessionarias(concessionarias);
+                    std::cin.ignore();
+                    pressToCont();
                     break;
                 default:
                     //selecionarConcessionaria(concessionarias[escolha - 3]);

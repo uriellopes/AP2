@@ -8,6 +8,8 @@ class Veiculo {
         std::string chassi;
         Tempo data;
     public:
+        static int qtd_veiculos;
+        static int getQtdVeiculos();
         std::string getMarca();
         float getPreco();
         std::string getChassi();
@@ -40,6 +42,10 @@ std::string Veiculo::getDia() {
     return data.saveData();
 }
 
+int Veiculo::getQtdVeiculos() {
+    return qtd_veiculos;
+}
+
 //Classe Carro
 class Carro : public Veiculo {
     private:
@@ -57,6 +63,7 @@ Carro::Carro(std::string m, float p, std::string c, Tempo d, int mt) {
     chassi = c;
     data = d;
     motor = mt;
+    qtd_veiculos++;
 }
 
 //Destrutor da classe Carro
@@ -86,6 +93,7 @@ Moto::Moto(std::string m, float p, std::string c, Tempo d, int md) {
     chassi = c;
     data = d;
     modelo = md;
+    qtd_veiculos++;
 }
 
 //Destrutor da classe Moto
@@ -115,6 +123,7 @@ Caminhao::Caminhao(std::string m, float p, std::string c, Tempo d, int cg) {
     chassi = c;
     data = d;
     carga = cg;
+    qtd_veiculos++;
 }
 
 //Destrutor da classe Caminhao

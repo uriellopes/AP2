@@ -1,5 +1,3 @@
 Concessionaria 1,321997547555590,1,Ayrton Senna
 Concessionaria 2,479378124000401,1,Afonso Pena
 Concessionaria 3,122312123444407,2,213123123
-Concessionaria 4,123123,1,Uriel Lopes
-Concessionaria 5,9898989,2,834834549
