@@ -1,4 +1,4 @@
-#include "propriedade.h"
+#include "../includes/propriedade.h"
 
 Propriedade::Propriedade() {
 

@@ -1,5 +1,5 @@
 #include <string>
-#include "chassi.h"
+#include "../includes/chassi.h"
 
 //Constructor da classe Chassi
 Chassi::Chassi(std::string c, int t, unsigned int p) {

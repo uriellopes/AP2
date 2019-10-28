@@ -2,7 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-#include "concessionaria.h"
+#include "../includes/concessionaria.h"
 
 //Verifica o tipo de SO para definir o tipo da variavel para limpar o terminal
 #ifdef _WIN32

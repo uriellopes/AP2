@@ -1,4 +1,4 @@
-#include "tempo.h"
+#include "../includes/tempo.h"
 
 //Função para calcular a quantidade de dias para cada ano
 void diasPorAno(int &ano, int &qtd) {

@@ -1,4 +1,4 @@
-#include "concessionaria.h"
+#include "../includes/concessionaria.h"
 
 //Construtor da classe Concessionaria para pessoa fisica
 Concessionaria::Concessionaria(std::string n, long long int c, std::string p) {
