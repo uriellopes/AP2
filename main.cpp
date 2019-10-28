@@ -625,6 +625,40 @@ void buscarPorChassi(Concessionaria &c) {
     pressToCont();
 }
 
+//Função que mostra o menu e recebe o valor para aumentar o preço dos carros de uma concessionaria
+void menuAumentarPreco(Concessionaria &c) {
+    bool inputValido;
+    float valor;
+    std::string input;
+
+    std::cout << "######################################################" << std::endl;
+    std::cout << "##   6 - Aumentar preco de todos os veiculos em %   ##" << std::endl;
+    std::cout << "######################################################" << std::endl << std::endl;
+
+    //Loop para pegar um valor no formato correto
+    do {
+        inputValido = true;
+        std::cout << "Digite o valor da % desejado ( xx.x ): ";
+        std::cin >> input;
+
+        inputValido = checarFloat(input);
+
+        if (!inputValido) {
+            std::cout << std::endl;
+            std::cout << "Digite apenas os numeros e com apenas um '.' para separar o decimal!!" << std::endl;
+        }
+    } while (!inputValido);
+
+    valor = std::stof(input);
+
+    c.aumentarPreco(valor);
+
+    std::cout << "Preco de todos os carros aumentado em: " << valor << "%" << std::endl;
+
+    std::cin.ignore();
+    pressToCont();
+}
+
 //Função para selecionar uma concessionaria
 void selecionarConcessionaria(Concessionaria &c) {
     std::string input;
@@ -688,7 +722,8 @@ void selecionarConcessionaria(Concessionaria &c) {
                 // pressToCont();
                 break;
             case 6:
-                // menuAumentarPreco(c);
+                clear();
+                menuAumentarPreco(c);
                 break;
             case 7:
                 // clear();

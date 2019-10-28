@@ -12,6 +12,7 @@ class Veiculo {
         static int getQtdVeiculos();
         std::string getMarca();
         float getPreco();
+        void setPreco(float p);
         std::string getChassi();
         Tempo getData();
         std::string getDia();
@@ -26,6 +27,11 @@ std::string Veiculo::getMarca() {
 //Getter do atributo preco
 float Veiculo::getPreco() {
     return preco;
+}
+
+//Setter do atributo preco
+void Veiculo::setPreco(float p) {
+    preco = p;
 }
 
 //Getter do atributo chassi

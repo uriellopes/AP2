@@ -36,6 +36,7 @@ class Concessionaria {
         int checkSize();
         bool verificarExiste(std::string &chassi);
         void buscarPorChassi(std::string c);
+        void aumentarPreco(float value);
         friend std::ostream& operator<< (std::ostream &o, Concessionaria const c);
 };
 
@@ -204,6 +205,24 @@ void Concessionaria::buscarPorChassi(std::string c) {
     if ( !existe ) {
         std::cout << "Nao existe nenhum veiculo cadastrado com esse chassi na concessionaria!!" << std::endl;
     }
+}
+
+//Função para aumentar o preço em uma certa % de todos os veiculos
+void Concessionaria::aumentarPreco(float value) {
+    float percent = value/100;
+    for(unsigned int i = 0; i < carros.size(); i++ ) {
+        carros[i].setPreco(carros[i].getPreco() + (carros[i].getPreco() * percent));
+    }
+
+    for(unsigned int i = 0; i < motos.size(); i++ ) {
+        motos[i].setPreco(motos[i].getPreco() + (motos[i].getPreco() * percent));
+    }
+
+    for(unsigned int i = 0; i < caminhoes.size(); i++ ) {
+        caminhoes[i].setPreco(caminhoes[i].getPreco() + (caminhoes[i].getPreco() * percent));
+    }
+
+    preco_total = preco_total + ( preco_total * percent );
 }
 
 //Sobrecarga do operador << na classe Concessionaria
