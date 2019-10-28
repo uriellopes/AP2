@@ -37,6 +37,88 @@ bool checarDigito(std::string &input) {
     return true;
 }
 
+//Função para chegar se o input é um float
+bool checarFloat(std::string &input) {
+    int ponto = 0;
+
+    //Verificar se os elementos são digitos ou '.' para casa decimais
+    for (unsigned int i = 0; i < input.size(); i++) {
+        if (!isdigit(input[i])) {
+            if (input[i] != '.') {
+                return false;
+            } else {
+                ponto++;
+            }
+        }
+    }
+
+    //Se a quantidade de pontos for maior que 1 o input é invalido
+    if (ponto < 2) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+//Função para testar se o input de data do usuário é válido
+bool testeData(std::string &data) {
+    int barra = 0;
+
+    //Verificar se os elementos são digitos ou '/' para separar o dia/mes/ano
+    for (unsigned int i = 0; i < data.size(); i++) {
+        if (!isdigit(data[i])) {
+            if (data[i] != '/') {
+                return false;
+            } else {
+                //Caso a barra esteja ao lado de outra barra, no inicio ou no fim da string o input é inválido
+                if( (data[i - 1] == '/' || i == 0 || i + 1 == data.size() ) ) { 
+                    return false;
+                } else {
+                    barra++;
+                }
+            }
+        }
+    }
+
+    //Caso tenham menos ou mais de 2 barras o input é inválido
+    if (barra == 2) {
+        return true;
+    } else {
+        return false;
+    }
+
+    return true;
+}
+
+//Função que remove as barras e troca por espaços
+void converterData(std::string &data) {
+    for (unsigned int i = 0; i < data.size(); i++) {
+        if( data[i] == '/') {
+            data[i] = ' ';
+        }
+    }
+}
+
+//Função para checar se o ano inserido é bissexto
+bool checkBissexto(int &ano) {
+    return (ano % 4 == 0) && (ano % 100 != 0 || ano % 400 == 0);
+}
+
+//Função para validar se a data inserida é válida
+bool validarData(int d, int m, int a) {
+    int meses[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+    //Se o ano for bissexto mudar a quantidade de dias de 28 para 29 no mes de fevereiro
+    if (checkBissexto(a)) {
+        meses[1] = 29;
+    }
+    bool anoCheck = a > 0;
+    bool mesCheck = m >= 1 && m <= 12;
+    bool diaCheck = d >= 1 && d <= meses[m - 1];
+
+    return anoCheck && mesCheck && diaCheck;
+}
+
 //Funcao para ler dados iniciais em um arquivo
 void lerDados(std::vector<Concessionaria> &concessionarias) {
     
@@ -247,6 +329,99 @@ void mostrarDadosConcessionarias(std::vector<Concessionaria> &concessionarias) {
     }
 }
 
+//Funcao que pega as informacoes do carro caso o carro nao esteja cadastrado ou a concessionaria esteja vazia
+void cadastrarCarro(Concessionaria &c, std::string &chassi) {
+    std::string marca, preco, data, input;
+    bool error = false, dataValida = true, inputValido = false;
+    int dia, mes, ano, motor;
+
+    std::cout << "Digite a marca do carro: ";
+    std::cin.ignore();
+    std::getline(std::cin, marca);
+
+    //Loop para pegar um input de preço no formato correto
+    do {
+        if (error) {
+            std::cout << std::endl << "Digite apenas numeros com um '.' separando os centavos !!" << std::endl;
+        }
+        std::cout << "Digite o preco do carro (xxxxxx.xx): ";
+        std::cin >> preco;
+        error = !checarFloat(preco);
+    } while (error);
+
+    //Loop para pegar um valor de data no formato correto e válida
+    do {
+        if (!dataValida) {
+            std::cout << std::endl << "Digite um valor de data valido!!" << std::endl;
+        }
+
+        std::cout << "Digite a data de fabricacao do carro (dd/mm/aaaa): ";
+        std::cin >> data;
+
+        if( testeData(data) ) {
+            converterData(data);
+            std::istringstream(data) >> dia >> mes >> ano;        
+            dataValida = validarData(dia, mes, ano);
+        } else {
+            dataValida = false;
+        }
+
+    } while (!dataValida);
+
+    std::cout << "Escolha o tipo de motor do carro" << std::endl;
+    std::cout << "1 - Gasolina" << std::endl;
+    std::cout << "2 - Eletrico" << std::endl;
+
+    do {
+        std::cin >> input;
+
+        inputValido = checarDigito(input);
+
+        if( inputValido ) {
+            motor = stoi(input);
+            if ( motor > 0 && motor < 3) {
+                inputValido = true;
+            } else {
+                inputValido = false;
+            }
+        }
+
+        if (!inputValido) {
+            std::cout << "Digite um valor valido!!" << std::endl;
+        }
+    } while (!inputValido);
+
+    c.novoCarro(Carro(marca, std::stof(preco), chassi, Tempo(dia, mes, ano), motor));
+    std::cout << "Carro cadastrado com sucesso!!!" << std::endl;
+}
+
+//Função para adicionar um novo carro na concessionária
+void adicionarNovoCarro(Concessionaria &c) {
+    std::string chassi;
+
+    std::cout << "##################################" << std::endl;
+    std::cout << "##   1 - Adicionar novo carro   ##" << std::endl;
+    std::cout << "##################################" << std::endl << std::endl;
+
+    std::cout << "Digite o chassi do carro: ";
+    std::cin >> chassi;
+
+    //Verificar se já existe algum carro com o chassi fornecido pelo usuário
+    if (c.checkSize() > 0) {
+        if (c.verificarExiste(chassi)) {
+            std::cout << "Já existe um carro cadastrado com esse chassi!!" << std::endl;
+        }
+        else {
+            cadastrarCarro(c, chassi);
+        }
+    } else {
+        cadastrarCarro(c, chassi);
+    }
+
+    std::cin.ignore();
+    pressToCont();
+}
+
 //Função para selecionar uma concessionaria
 void selecionarConcessionaria(Concessionaria &c) {
     std::string input;
@@ -258,15 +433,15 @@ void selecionarConcessionaria(Concessionaria &c) {
     do {
         clear();
         std::cout << std::endl << "###################################" << std::endl;
-        std::cout << c;
+        std::cout << c << std::endl;
         std::cout << "###################################" << std::endl << std::endl;
 
         std::cout << "Escolha uma das seguintes opcoes: " << std::endl << std::endl;
 
         std::cout << "[1] - Adicionar novo carro" << std::endl;
-        std::cout << "[2] - Listar carros cadastrados" << std::endl;
-        std::cout << "[3] - Aumentar preco de todos os carros em %" << std::endl;
-        std::cout << "[4] - Listar carros produzidos ha menos de 90 dias" << std::endl;
+        std::cout << "[2] - Listar veiculos cadastrados" << std::endl;
+        std::cout << "[3] - Aumentar preco de todos os veiculos em %" << std::endl;
+        std::cout << "[4] - Listar veiculos produzidos ha menos de 90 dias" << std::endl;
         std::cout << std::endl;
         std::cout << "[0] - Sair" << std::endl;
 
@@ -286,7 +461,8 @@ void selecionarConcessionaria(Concessionaria &c) {
                 sair = true;
                 break;
             case 1:
-                //adicionarNovoCarro(c);
+                clear();
+                adicionarNovoCarro(c);
                 break;
             case 2:
                 // clear();

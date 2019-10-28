@@ -33,6 +33,8 @@ class Concessionaria {
         std::vector<Caminhao> getCaminhoes();
         Propriedade getPropriedade();
         void showDados();
+        int checkSize();
+        bool verificarExiste(std::string &chassi);
         friend std::ostream& operator<< (std::ostream &o, Concessionaria const c);
 };
 
@@ -137,6 +139,21 @@ void Concessionaria::showDados() {
     std::cout << "Quantidade de Motos: " << qtd_motos << std::endl;
     std::cout << "Quantidade de Caminhoes: " << qtd_caminhoes << std::endl;
     std::cout << "Preço total dos veiculos: " << preco_total << std::endl;
+}
+
+//Funcao que retorna o tamanho do vector carros
+int Concessionaria::checkSize() {
+    return carros.size();
+}
+
+//Funcao para verificar se ja existe o chassi de um carro
+bool Concessionaria::verificarExiste(std::string &chassi) {
+    for(unsigned int i = 0; i < carros.size(); i++ ) {
+        if( chassi.compare(carros[i].getChassi()) == 0 ) {
+            return true;
+        }
+    }
+    return false;
 }
 
 //Sobrecarga do operador << na classe Concessionaria
