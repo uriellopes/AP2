@@ -2,6 +2,7 @@
 #include "propriedade.h"
 #include "chassi.h"
 #include <vector>
+#include <iomanip>
 
 class Concessionaria {
     private:
@@ -37,6 +38,7 @@ class Concessionaria {
         bool verificarExiste(std::string &chassi);
         void buscarPorChassi(std::string c);
         void aumentarPreco(float value);
+        void showVeiculos();
         friend std::ostream& operator<< (std::ostream &o, Concessionaria const c);
 };
 
@@ -223,6 +225,135 @@ void Concessionaria::aumentarPreco(float value) {
     }
 
     preco_total = preco_total + ( preco_total * percent );
+}
+
+//Função para mostrar todos os carros de uma concessionária
+void Concessionaria::showVeiculos() {    
+    int j = 0;
+    if ( qtd_estoque > 0 ) {
+
+        std::cout << std::endl << "=================================" << std::endl;
+        std::cout << "Lista de Carros da Concessionaria " << std::endl;
+        std::cout << "=================================" << std::endl << std::endl;
+
+        if( !carros.empty() ) {
+
+            std::cout << std::setw(10) << "|" << std::setw(12) << "Marca" << std::setw(8) << "|" 
+            << std::setw(12) << "Preco" << std::setw(8) << "|" 
+            << std::setw(13) << "Chassi" << std::setw(7) << "|" 
+            << std::setw(11) << "Data" << std::setw(6) << "|" << std::setw(10) << "Motor"<< std::endl;
+
+            for(std::vector<Carro>::iterator i = carros.begin(); i != carros.end(); i++ ) {
+                ++j;
+                if ( j > 9 ) {
+                    std::cout << "Carro " << j << " |" << std::setw(13) << i->getMarca() << std::setw(7) << "|" 
+                    << std::setw(13) << std::fixed << std::setprecision(2) << i->getPreco() << std::setw(7) << "|"
+                    << std::setw(15) << i->getChassi() << std::setw(5) << "|" 
+                    << std::setw(5) << i->getData() << std::setw(5) << "|";
+                    if( i->getTipo() == 1 ) {
+                        std::cout << std::setw(10) << "Gasolina" << std::endl; 
+                    } else {
+                        std::cout << std::setw(10) << "Eletrico" << std::endl; 
+                    }
+                } else {
+                    std::cout << std::setw(6) << "Carro " << j << "  |" << std::setw(13) << i->getMarca() << std::setw(7) << "|" 
+                    << std::setw(13) << std::fixed << std::setprecision(2) << i->getPreco() << std::setw(7) << "|"
+                    << std::setw(15) << i->getChassi() << std::setw(5) << "|" 
+                    << std::setw(5) << i->getData() << std::setw(5) << "|";
+                    if( i->getTipo() == 1 ) {
+                        std::cout << std::setw(10) << "Gasolina" << std::endl; 
+                    } else {
+                        std::cout << std::setw(10) << "Eletrico" << std::endl; 
+                    }
+                }
+            }
+        } else {
+            std::cout << "Nenhum carro cadastrado" << std::endl << std::endl;
+        }
+
+        std::cout << std::endl << "=================================" << std::endl;
+        std::cout << "Lista de Motos da Concessionaria " << std::endl;
+        std::cout << "=================================" << std::endl << std::endl;
+
+        j = 0;
+        if( !motos.empty() ) {
+
+            std::cout << std::setw(10) << "|" << std::setw(12) << "Marca" << std::setw(8) << "|" 
+            << std::setw(12) << "Preco" << std::setw(8) << "|" 
+            << std::setw(13) << "Chassi" << std::setw(7) << "|" 
+            << std::setw(11) << "Data" << std::setw(6) << "|" << std::setw(10) << "Modelo"<< std::endl;
+
+            for(std::vector<Moto>::iterator i = motos.begin(); i != motos.end(); i++ ) {
+                ++j;
+                if ( j > 9 ) {
+                    std::cout << "Moto " << j << " |" << std::setw(13) << i->getMarca() << std::setw(7) << "|" 
+                    << std::setw(13) << std::fixed << std::setprecision(2) << i->getPreco() << std::setw(7) << "|"
+                    << std::setw(15) << i->getChassi() << std::setw(5) << "|" 
+                    << std::setw(5) << i->getData() << std::setw(5) << "|";
+                    if( i->getTipo() == 1 ) {
+                        std::cout << std::setw(10) << "Classico" << std::endl; 
+                    } else {
+                        std::cout << std::setw(10) << "Esportivo" << std::endl; 
+                    }
+                } else {
+                    std::cout << std::setw(6) << "Moto " << j << "  |" << std::setw(13) << i->getMarca() << std::setw(7) << "|" 
+                    << std::setw(13) << std::fixed << std::setprecision(2) << i->getPreco() << std::setw(7) << "|"
+                    << std::setw(15) << i->getChassi() << std::setw(5) << "|" 
+                    << std::setw(5) << i->getData() << std::setw(5) << "|";
+                    if( i->getTipo() == 1 ) {
+                        std::cout << std::setw(10) << "Classico" << std::endl; 
+                    } else {
+                        std::cout << std::setw(10) << "Esportivo" << std::endl; 
+                    }
+                }
+            }
+        } else {
+            std::cout << "Nenhuma moto cadastrada" << std::endl << std::endl;
+        }
+
+        std::cout << std::endl << "====================================" << std::endl;
+        std::cout << "Lista de Caminhoes da Concessionaria " << std::endl;
+        std::cout << "====================================" << std::endl << std::endl;
+
+        j = 0;
+        if( !caminhoes.empty() ) {
+
+            std::cout << std::setw(13) << "|" << std::setw(12) << "Marca" << std::setw(8) << "|" 
+            << std::setw(12) << "Preco" << std::setw(8) << "|" 
+            << std::setw(13) << "Chassi" << std::setw(7) << "|" 
+            << std::setw(11) << "Data" << std::setw(6) << "|" << std::setw(10) << "Carga"<< std::endl;
+
+            for(std::vector<Caminhao>::iterator i = caminhoes.begin(); i != caminhoes.end(); i++ ) {
+                ++j;
+                if ( j > 9 ) {
+                    std::cout << "Caminhao " << j << " |" << std::setw(13) << i->getMarca() << std::setw(7) << "|" 
+                    << std::setw(13) << std::fixed << std::setprecision(2) << i->getPreco() << std::setw(7) << "|"
+                    << std::setw(15) << i->getChassi() << std::setw(5) << "|" 
+                    << std::setw(5) << i->getData() << std::setw(5) << "|";
+                    if( i->getTipo() == 1 ) {
+                        std::cout << std::setw(10) << "Comum" << std::endl; 
+                    } else {
+                        std::cout << std::setw(10) << "Perigosa" << std::endl; 
+                    }
+                } else {
+                    std::cout << std::setw(6) << "Caminhao " << j << "  |" << std::setw(13) << i->getMarca() << std::setw(7) << "|" 
+                    << std::setw(13) << std::fixed << std::setprecision(2) << i->getPreco() << std::setw(7) << "|"
+                    << std::setw(15) << i->getChassi() << std::setw(5) << "|" 
+                    << std::setw(5) << i->getData() << std::setw(5) << "|";
+                    if( i->getTipo() == 1 ) {
+                        std::cout << std::setw(10) << "Comum" << std::endl; 
+                    } else {
+                        std::cout << std::setw(10) << "Perigosa" << std::endl; 
+                    }
+                }
+            }
+        } else {
+            std::cout << "Nenhum caminhao cadastrada" << std::endl << std::endl;
+        }
+
+    } else {
+        std::cout << "Nenhum veiculo cadastrado na concessionaria" << std::endl;
+    }
 }
 
 //Sobrecarga do operador << na classe Concessionaria

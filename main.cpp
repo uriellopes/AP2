@@ -717,9 +717,10 @@ void selecionarConcessionaria(Concessionaria &c) {
                 buscarPorChassi(c);
                 break;
             case 5:
-                // clear();
-                // c.showCarros();
-                // pressToCont();
+                clear();
+                c.showVeiculos();
+                std::cin.ignore();
+                pressToCont();
                 break;
             case 6:
                 clear();
