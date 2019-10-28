@@ -17,6 +17,7 @@ class Veiculo {
         Tempo getData();
         std::string getDia();
         virtual int getTipo() = 0;
+        int getQtdDias();
 };
 
 //Getter do atributo marca
@@ -52,6 +53,11 @@ std::string Veiculo::getDia() {
 //Getter do atributo estatico qtd_veiculos
 int Veiculo::getQtdVeiculos() {
     return qtd_veiculos;
+}
+
+//Função que chama o getter do atributo qtd_dias da classe de Tempo
+int Veiculo::getQtdDias() {
+    return data.getQtdDias();
 }
 
 //Classe Carro

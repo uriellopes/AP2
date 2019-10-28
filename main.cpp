@@ -727,9 +727,10 @@ void selecionarConcessionaria(Concessionaria &c) {
                 menuAumentarPreco(c);
                 break;
             case 7:
-                // clear();
-                // c.listarCarrosRecentes();
-                // pressToCont();
+                clear();
+                c.listarVeiculosRecentes();
+                std::cin.ignore();
+                pressToCont();
                 break;
             default:
                 error = true;
