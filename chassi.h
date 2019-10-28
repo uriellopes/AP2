@@ -6,6 +6,9 @@ class Chassi {
     public:
         Chassi(std::string c, int t, unsigned int p);
         ~Chassi();
+        std::string getChassi();
+        int getTipo();
+        unsigned int getPosicao();
 };
 
 Chassi::Chassi(std::string c, int t, unsigned int p) {
@@ -16,4 +19,16 @@ Chassi::Chassi(std::string c, int t, unsigned int p) {
 
 Chassi::~Chassi() {
 
+}
+
+std::string Chassi::getChassi() {
+    return chassi;
+}
+
+int Chassi::getTipo() {
+    return tipo;
+}
+
+unsigned int Chassi::getPosicao() {
+    return posicao;
 }

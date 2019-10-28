@@ -406,10 +406,10 @@ void adicionarNovoCarro(Concessionaria &c) {
     std::cout << "Digite o chassi do carro: ";
     std::cin >> chassi;
 
-    //Verificar se já existe algum carro com o chassi fornecido pelo usuário
+    //Verificar se já existe algum veiculo com o chassi fornecido pelo usuário
     if (c.checkSize() > 0) {
         if (c.verificarExiste(chassi)) {
-            std::cout << "Já existe um carro cadastrado com esse chassi!!" << std::endl;
+            std::cout << "Já existe um veiculo cadastrado com esse chassi!!" << std::endl;
         }
         else {
             cadastrarCarro(c, chassi);
@@ -419,6 +419,209 @@ void adicionarNovoCarro(Concessionaria &c) {
     }
 
     std::cin.ignore();
+    pressToCont();
+}
+
+//Funcao que pega as informacoes do carro caso o carro nao esteja cadastrado ou a concessionaria esteja vazia
+void cadastrarMoto(Concessionaria &c, std::string &chassi) {
+    std::string marca, preco, data, input;
+    bool error = false, dataValida = true, inputValido = false;
+    int dia, mes, ano, modelo;
+
+    std::cout << "Digite a marca da moto: ";
+    std::cin.ignore();
+    std::getline(std::cin, marca);
+
+    //Loop para pegar um input de preço no formato correto
+    do {
+        if (error) {
+            std::cout << std::endl << "Digite apenas numeros com um '.' separando os centavos !!" << std::endl;
+        }
+        std::cout << "Digite o preco da moto (xxxxxx.xx): ";
+        std::cin >> preco;
+        error = !checarFloat(preco);
+    } while (error);
+
+    //Loop para pegar um valor de data no formato correto e válida
+    do {
+        if (!dataValida) {
+            std::cout << std::endl << "Digite um valor de data valido!!" << std::endl;
+        }
+
+        std::cout << "Digite a data de fabricacao da moto (dd/mm/aaaa): ";
+        std::cin >> data;
+
+        if( testeData(data) ) {
+            converterData(data);
+            std::istringstream(data) >> dia >> mes >> ano;        
+            dataValida = validarData(dia, mes, ano);
+        } else {
+            dataValida = false;
+        }
+
+    } while (!dataValida);
+
+    std::cout << "Escolha o tipo de modelo da moto" << std::endl;
+    std::cout << "1 - Classico" << std::endl;
+    std::cout << "2 - Esportivo" << std::endl;
+
+    do {
+        std::cin >> input;
+
+        inputValido = checarDigito(input);
+
+        if( inputValido ) {
+            modelo = stoi(input);
+            if ( modelo > 0 && modelo < 3) {
+                inputValido = true;
+            } else {
+                inputValido = false;
+            }
+        }
+
+        if (!inputValido) {
+            std::cout << "Digite um valor valido!!" << std::endl;
+        }
+    } while (!inputValido);
+
+    c.novoMoto(Moto(marca, std::stof(preco), chassi, Tempo(dia, mes, ano), modelo));
+    std::cout << "Moto cadastrada com sucesso!!!" << std::endl;
+}
+
+//Função para adicionar um nova moto na concessionária
+void adicionarNovaMoto(Concessionaria &c) {
+    std::string chassi;
+
+    std::cout << "##################################" << std::endl;
+    std::cout << "##   2 - Adicionar nova moto   ##" << std::endl;
+    std::cout << "##################################" << std::endl << std::endl;
+
+    std::cout << "Digite o chassi da moto: ";
+    std::cin >> chassi;
+
+    //Verificar se já existe algum veiculo com o chassi fornecido pelo usuário
+    if (c.checkSize() > 0) {
+        if (c.verificarExiste(chassi)) {
+            std::cout << "Já existe um veiculo cadastrado com esse chassi!!" << std::endl;
+        }
+        else {
+            cadastrarMoto(c, chassi);
+        }
+    } else {
+        cadastrarMoto(c, chassi);
+    }
+
+    std::cin.ignore();
+    pressToCont();
+}
+
+//Funcao que pega as informacoes do carro caso o carro nao esteja cadastrado ou a concessionaria esteja vazia
+void cadastrarCaminhao(Concessionaria &c, std::string &chassi) {
+    std::string marca, preco, data, input;
+    bool error = false, dataValida = true, inputValido = false;
+    int dia, mes, ano, carga;
+
+    std::cout << "Digite a marca do caminhao: ";
+    std::cin.ignore();
+    std::getline(std::cin, marca);
+
+    //Loop para pegar um input de preço no formato correto
+    do {
+        if (error) {
+            std::cout << std::endl << "Digite apenas numeros com um '.' separando os centavos !!" << std::endl;
+        }
+        std::cout << "Digite o preco do caminhao (xxxxxx.xx): ";
+        std::cin >> preco;
+        error = !checarFloat(preco);
+    } while (error);
+
+    //Loop para pegar um valor de data no formato correto e válida
+    do {
+        if (!dataValida) {
+            std::cout << std::endl << "Digite um valor de data valido!!" << std::endl;
+        }
+
+        std::cout << "Digite a data de fabricacao do caminhao (dd/mm/aaaa): ";
+        std::cin >> data;
+
+        if( testeData(data) ) {
+            converterData(data);
+            std::istringstream(data) >> dia >> mes >> ano;        
+            dataValida = validarData(dia, mes, ano);
+        } else {
+            dataValida = false;
+        }
+
+    } while (!dataValida);
+
+    std::cout << "Escolha o tipo de carga do caminhao" << std::endl;
+    std::cout << "1 - Comum" << std::endl;
+    std::cout << "2 - Perigosa" << std::endl;
+
+    do {
+        std::cin >> input;
+
+        inputValido = checarDigito(input);
+
+        if( inputValido ) {
+            carga = stoi(input);
+            if ( carga > 0 && carga < 3) {
+                inputValido = true;
+            } else {
+                inputValido = false;
+            }
+        }
+
+        if (!inputValido) {
+            std::cout << "Digite um valor valido!!" << std::endl;
+        }
+    } while (!inputValido);
+
+    c.novoCaminhao(Caminhao(marca, std::stof(preco), chassi, Tempo(dia, mes, ano), carga));
+    std::cout << "Caminhao cadastrado com sucesso!!!" << std::endl;
+}
+
+//Função para adicionar um novo carro na concessionária
+void adicionarNovoCaminhao(Concessionaria &c) {
+    std::string chassi;
+
+    std::cout << "#####################################" << std::endl;
+    std::cout << "##   3 - Adicionar novo caminhao   ##" << std::endl;
+    std::cout << "#####################################" << std::endl << std::endl;
+
+    std::cout << "Digite o chassi do caminhao: ";
+    std::cin >> chassi;
+
+    //Verificar se já existe algum veiculo com o chassi fornecido pelo usuário
+    if (c.checkSize() > 0) {
+        if (c.verificarExiste(chassi)) {
+            std::cout << "Já existe um veiculo cadastrado com esse chassi!!" << std::endl;
+        }
+        else {
+            cadastrarCaminhao(c, chassi);
+        }
+    } else {
+        cadastrarCaminhao(c, chassi);
+    }
+
+    std::cin.ignore();
+    pressToCont();
+}
+
+void buscarPorChassi(Concessionaria &c) {
+    std::string input;
+
+    std::cout << "Digite o chassi do veiculo: ";
+    std::cin.ignore();
+    std::getline(std::cin, input);
+
+    if (c.checkSize() > 0) {
+        c.buscarPorChassi(input);
+    } else {
+        std::cout << "Nao existe nenhum veiculo cadastrado com esse chassi na concessionaria!!" << std::endl;
+    }
+
+    std::cout << std::endl;
     pressToCont();
 }
 
@@ -439,9 +642,12 @@ void selecionarConcessionaria(Concessionaria &c) {
         std::cout << "Escolha uma das seguintes opcoes: " << std::endl << std::endl;
 
         std::cout << "[1] - Adicionar novo carro" << std::endl;
-        std::cout << "[2] - Listar veiculos cadastrados" << std::endl;
-        std::cout << "[3] - Aumentar preco de todos os veiculos em %" << std::endl;
-        std::cout << "[4] - Listar veiculos produzidos ha menos de 90 dias" << std::endl;
+        std::cout << "[2] - Adicionar nova moto" << std::endl;
+        std::cout << "[3] - Adicionar novo caminhao" << std::endl;
+        std::cout << "[4] - Buscar por chassi" << std::endl;
+        std::cout << "[5] - Listar veiculos cadastrados" << std::endl;
+        std::cout << "[6] - Aumentar preco de todos os veiculos em %" << std::endl;
+        std::cout << "[7] - Listar veiculos produzidos ha menos de 90 dias" << std::endl;
         std::cout << std::endl;
         std::cout << "[0] - Sair" << std::endl;
 
@@ -465,14 +671,26 @@ void selecionarConcessionaria(Concessionaria &c) {
                 adicionarNovoCarro(c);
                 break;
             case 2:
+                clear();
+                adicionarNovaMoto(c);
+                break;
+            case 3:
+                clear();
+                adicionarNovoCaminhao(c);
+                break;
+            case 4:
+                clear();
+                buscarPorChassi(c);
+                break;
+            case 5:
                 // clear();
                 // c.showCarros();
                 // pressToCont();
                 break;
-            case 3:
+            case 6:
                 // menuAumentarPreco(c);
                 break;
-            case 4:
+            case 7:
                 // clear();
                 // c.listarCarrosRecentes();
                 // pressToCont();

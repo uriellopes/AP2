@@ -35,6 +35,7 @@ class Concessionaria {
         void showDados();
         int checkSize();
         bool verificarExiste(std::string &chassi);
+        void buscarPorChassi(std::string c);
         friend std::ostream& operator<< (std::ostream &o, Concessionaria const c);
 };
 
@@ -141,19 +142,68 @@ void Concessionaria::showDados() {
     std::cout << "Preço total dos veiculos: " << preco_total << std::endl;
 }
 
-//Funcao que retorna o tamanho do vector carros
+//Funcao que retorna a quantidade de veiculos cadastrados
 int Concessionaria::checkSize() {
-    return carros.size();
+    return qtd_estoque;
 }
 
-//Funcao para verificar se ja existe o chassi de um carro
+//Funcao para verificar se ja existe o chassi de um veiculos
 bool Concessionaria::verificarExiste(std::string &chassi) {
-    for(unsigned int i = 0; i < carros.size(); i++ ) {
-        if( chassi.compare(carros[i].getChassi()) == 0 ) {
+    for( unsigned int i = 0; i < chassis.size(); i++ ) {
+        if( chassi.compare(chassis[i].getChassi()) == 0) {
             return true;
         }
     }
     return false;
+}
+
+void Concessionaria::buscarPorChassi(std::string c) {
+    bool existe = false;
+    for( unsigned int i = 0; i < chassis.size(); i++ ) {
+        if( c.compare(chassis[i].getChassi()) == 0) {
+            existe = true;
+            switch (chassis[i].getTipo()) {
+            case 1:
+                std::cout << "Marca: " << carros[chassis[i].getPosicao()].getMarca() << std::endl;
+                std::cout << "Preco: " << carros[chassis[i].getPosicao()].getPreco() << std::endl;
+                std::cout << "Chassi: " << carros[chassis[i].getPosicao()].getChassi() << std::endl;
+                std::cout << "Data: " << carros[chassis[i].getPosicao()].getData() << std::endl;
+                if( carros[chassis[i].getPosicao()].getTipo() == 1 ) {
+                    std::cout << "Motor: Gasolina" << std::endl;
+                } else {
+                    std::cout << "Motor: Eletrico" << std::endl;
+                }
+                break;
+            case 2:
+                std::cout << "Marca: " << motos[chassis[i].getPosicao()].getMarca() << std::endl;
+                std::cout << "Preco: " << motos[chassis[i].getPosicao()].getPreco() << std::endl;
+                std::cout << "Chassi: " << motos[chassis[i].getPosicao()].getChassi() << std::endl;
+                std::cout << "Data: " << motos[chassis[i].getPosicao()].getData() << std::endl;
+                if( motos[chassis[i].getPosicao()].getTipo() == 1 ) {
+                    std::cout << "Modelo: Classico" << std::endl;
+                } else {
+                    std::cout << "Modelo: Esportivo" << std::endl;
+                }
+                break;
+            case 3:
+                std::cout << "Marca: " << caminhoes[chassis[i].getPosicao()].getMarca() << std::endl;
+                std::cout << "Preco: " << caminhoes[chassis[i].getPosicao()].getPreco() << std::endl;
+                std::cout << "Chassi: " << caminhoes[chassis[i].getPosicao()].getChassi() << std::endl;
+                std::cout << "Data: " << caminhoes[chassis[i].getPosicao()].getData() << std::endl;
+                if( caminhoes[chassis[i].getPosicao()].getTipo() == 1 ) {
+                    std::cout << "Carga: Comum" << std::endl;
+                } else {
+                    std::cout << "Carga: Perigosa" << std::endl;
+                }
+                break;
+            }
+            break;
+        }
+    }
+
+    if ( !existe ) {
+        std::cout << "Nao existe nenhum veiculo cadastrado com esse chassi na concessionaria!!" << std::endl;
+    }
 }
 
 //Sobrecarga do operador << na classe Concessionaria
