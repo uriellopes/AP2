@@ -132,15 +132,6 @@ void salvarDados(std::vector<Concessionaria> &concessionarias) {
     dadosVeiculos.close();
 }
 
-//Funcao que mostrar os dados das concessionarias ( Proprietario, quantidade de cada veiculo e o valor total dos veiculos)
-void mostrarDadosConcessionarias(std::vector<Concessionaria> &concessionarias) {
-    for (unsigned i = 0; i < concessionarias.size(); i++) {
-        std::cout << "Concessionária " << i + 1 << std::endl;
-        concessionarias[i].showDados();
-        std::cout << std::endl;
-    }
-}
-
 //Função para criar uma nova concessionaria
 void novaConcessionaria(std::vector<Concessionaria> &concessionarias) {
     clear();
@@ -247,6 +238,79 @@ void novaConcessionaria(std::vector<Concessionaria> &concessionarias) {
     pressToCont();
 }
 
+//Funcao que mostrar os dados das concessionarias ( Proprietario, quantidade de cada veiculo e o valor total dos veiculos)
+void mostrarDadosConcessionarias(std::vector<Concessionaria> &concessionarias) {
+    for (unsigned i = 0; i < concessionarias.size(); i++) {
+        std::cout << "Concessionária " << i + 1 << std::endl;
+        concessionarias[i].showDados();
+        std::cout << std::endl;
+    }
+}
+
+//Função para selecionar uma concessionaria
+void selecionarConcessionaria(Concessionaria &c) {
+    std::string input;
+    int escolha;
+    bool sair = false;
+    bool error = false;
+
+    //Loop para verificar se o input é uma opção válida e caso seja, chamar a função referente a opção escolhida
+    do {
+        clear();
+        std::cout << std::endl << "###################################" << std::endl;
+        std::cout << c;
+        std::cout << "###################################" << std::endl << std::endl;
+
+        std::cout << "Escolha uma das seguintes opcoes: " << std::endl << std::endl;
+
+        std::cout << "[1] - Adicionar novo carro" << std::endl;
+        std::cout << "[2] - Listar carros cadastrados" << std::endl;
+        std::cout << "[3] - Aumentar preco de todos os carros em %" << std::endl;
+        std::cout << "[4] - Listar carros produzidos ha menos de 90 dias" << std::endl;
+        std::cout << std::endl;
+        std::cout << "[0] - Sair" << std::endl;
+
+        std::cout << std::endl;
+        if (error) {
+            error = false;
+            std::cout << "**Digite uma opcao valida!**" << std::endl;
+        }
+        std::cout << "Opcao: ";
+        std::cin >> input;
+        
+        if (checarDigito(input)) {
+            escolha = std::stoi(input, nullptr);
+
+            switch (escolha) {
+            case 0:
+                sair = true;
+                break;
+            case 1:
+                //adicionarNovoCarro(c);
+                break;
+            case 2:
+                // clear();
+                // c.showCarros();
+                // pressToCont();
+                break;
+            case 3:
+                // menuAumentarPreco(c);
+                break;
+            case 4:
+                // clear();
+                // c.listarCarrosRecentes();
+                // pressToCont();
+                break;
+            default:
+                error = true;
+                break;
+            }
+        } else {
+            error = true;
+        }
+    } while (!sair);
+}
+
 //Função que mostra o menu principal do código
 void showMenu(std::vector<Concessionaria> &concessionarias) {
     std::string input;
@@ -304,7 +368,7 @@ void showMenu(std::vector<Concessionaria> &concessionarias) {
                     pressToCont();
                     break;
                 default:
-                    //selecionarConcessionaria(concessionarias[escolha - 3]);
+                    selecionarConcessionaria(concessionarias[escolha - 4]);
                     break;
                 }
             } else {
