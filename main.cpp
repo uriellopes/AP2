@@ -106,15 +106,24 @@ bool checkBissexto(int &ano) {
 
 //Função para validar se a data inserida é válida
 bool validarData(int d, int m, int a) {
+    bool mesCheck, diaCheck;
     int meses[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    time_t atual;
+    time(&atual);
+    tm * tempo = localtime(&atual);
 
     //Se o ano for bissexto mudar a quantidade de dias de 28 para 29 no mes de fevereiro
     if (checkBissexto(a)) {
         meses[1] = 29;
     }
-    bool anoCheck = a > 0;
-    bool mesCheck = m >= 1 && m <= 12;
-    bool diaCheck = d >= 1 && d <= meses[m - 1];
+    bool anoCheck = a > 0 && a < tempo->tm_year + 1901;
+    if( a == tempo->tm_year + 1900 ) {
+        mesCheck = m >= 1 && m <= tempo->tm_mon + 1;    
+        diaCheck = d >= 1 && d <= tempo->tm_mday;
+    } else {
+        mesCheck = m >= 1 && m <= 12;
+        diaCheck = d >= 1 && d <= meses[m - 1];
+    }
 
     return anoCheck && mesCheck && diaCheck;
 }
